@@ -7,9 +7,20 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class MachineManager {
+    private static MachineManager machineManager;
     public HashMap<String, Integer> inventory = new HashMap<>();
 
-    public boolean checkAndFillInventory(BeveragesEntity beverage) {
+    public static MachineManager getInstance(){
+        if(machineManager == null){
+            synchronized (MachineManager.class){
+                if(machineManager == null){
+                    machineManager=new MachineManager();
+                }
+            }
+        }
+        return machineManager;
+    }
+    public synchronized boolean checkAndPrepare(BeveragesEntity beverage) {
         Map<String, Integer> requiredIngredientMap = beverage.getIngredientQuantity();
         boolean flag = true;
 
@@ -39,5 +50,8 @@ public class MachineManager {
     public void addInventory(String ingredient, int quantity) {
         int existingInventory = inventory.getOrDefault(ingredient, 0);
         inventory.put(ingredient, existingInventory + quantity);
+    }
+    public void cleanMachine() {
+        inventory.clear();
     }
 }
