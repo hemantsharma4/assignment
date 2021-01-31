@@ -21,6 +21,7 @@ public class MachineManager {
         return machineManager;
     }
     public synchronized boolean checkAndPrepare(BeveragesEntity beverage) {
+        //Checking quantity of each ingredient with inventory for beverage
         Map<String, Integer> requiredIngredientMap = beverage.getIngredientQuantity();
         boolean flag = true;
 

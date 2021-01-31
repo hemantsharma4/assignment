@@ -41,9 +41,11 @@ public class CoffeeMachine {
         this.machineManager = MachineManager.getInstance();
         Map<String, Integer> ingredients = machineRootEntity.getMachine().getTotal_items_quantity();
 
+        //on start load inventory with given items
         for (String key : ingredients.keySet()) {
             machineManager.addInventory(key, ingredients.get(key));
         }
+        // processing each order
         HashMap<String, HashMap<String, Integer>> beverages;
         beverages = machineRootEntity.getMachine().getBeverages();
         for (String key : beverages.keySet()) {
